@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+<body>
+    <div class="top">
+        <marquee behavior="alternate" direction="旋转3D照片回忆墙">
+            回忆墙
+        </marquee>
+        <div id="text"></div>
+    </div>
+    <div class="box">
+        <img src="./img/1.jpg" alt="">
+        <img src="./img/17.jpg" alt="">
+        <img src="./img/16.jpg" alt="">
+        <img src="./img/18.jpg" alt="">
+        <img src="./img/19.jpg" alt="">
+        <img src="./img/21.jpg" alt="">
+        <img src="./img/14.jpg" alt="">
+        <img src="./img/15.jpg" alt="">
+    </div>
+
+    <embed src="music.mp3" autostart=true loop=true class="music">
+
+    <script src="jquery-3.3.1.js"></script>
+    
+    <script>
+//鼠标视觉中心联动 
+        document.body.onmousemove = function(e){
+            this.style.perspectiveOrigin = "" + e.pageX + "px " + e.pageY + "px ";
+        }
+// 打字效果
+        var i = 0;
+        var str = "——friends worthy of treasuring";
+        window.onload = function typing(){
+            var mydiv = document.getElementById("text");
+            mydiv.innerHTML += str.charAt(i);
+            i++;
+            var id = setTimeout(typing,1000);
+            if( i == str.length){
+                clearTimeout(id);
+            }
+        }
+//雪花随机飘落
+        var minSize = 5,
+            maxSize = 50,
+            newOne = 100,
+            flakColor = "rgb(255,255,255)";
+        var flak = $("<div class='xh'></div>")
+                    .css({position:"absolute","top":"0px"})
+                        .html(" ❄");
+        var dhight = $(window).height(),
+            dw = $(window).width();
+        setInterval(function(){
+            var sizeflak = minSize + Math.random()*maxSize;
+            var starleft = Math.random()*dw;
+            var startopcity = Math.random()*0.7;
+            var endpositionTop = dhight-100;
+            var endleft = Math.random()*dw - "500px";
+            var durationfull = 5000+Math.random()*3000;
+            flak.clone().appendTo($('body')).css({
+                "left":starleft,
+                "opacity":startopcity,
+                "font-size":sizeflak,
+                "color":flakColor,
+            }).animate({
+                "top":endpositionTop,
+                "left":endleft,
+                "opacity":0.1,
+            },durationfull,function(){
+                $(this).remove();
+            });
+        },newOne);
+    </script>
+</body>
+</html>
